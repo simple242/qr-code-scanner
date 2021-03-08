@@ -1,0 +1,80 @@
+<ion-content class="ionContent">
+    <div class="page page-main">
+        <div class="container">
+            <div class="page__content">
+                <div class="card" (click)="toGenerate('URL')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/link.svg' : 'assets/icons/create/link.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.url}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('EMAIL')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/envelope-fill.svg' : 'assets/icons/create/envelope-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.email}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('TEXT')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/file-text-fill.svg' : 'assets/icons/create/file-text-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.text}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('PHONE')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/telephone-fill.svg' : 'assets/icons/create/telephone-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.phone}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('WIFI')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/wifi.svg' : 'assets/icons/create/wifi.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.wifi}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('SMS')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/chat-dots-fill.svg' : 'assets/icons/create/chat-dots-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.sms}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('EVENT')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/calendar-event-fill.svg' : 'assets/icons/create/calendar-event-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.event}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="toGenerate('ME')">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/create/dark/person-square.svg' : 'assets/icons/create/person-square.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.create.me}}
+                    </ion-text>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

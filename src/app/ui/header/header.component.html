@@ -1,0 +1,26 @@
+<div class="header">
+    <div class="container">
+        <div class="header__content">
+            <div class="header__subContent">
+                <ion-img
+                        class="icon icon-header icon icon-headerBig"
+                        src="assets/icons/header/arrow-left-short.svg"
+                        (click)="goBack()"
+                        *ngIf="!uiService.isMainPage$.value"
+                ></ion-img>
+                <ion-img
+                        class="icon icon-header"
+                        src="assets/icons/header/list.svg"
+                        (click)="openDrawer()"
+                        *ngIf="uiService.isMainPage$.value"
+                ></ion-img>
+                <ion-text class="header__title">{{uiService.headerTitle$.value}}</ion-text>
+            </div>
+            <ion-img
+                    class="icon icon-header"
+                    src="assets/icons/header/box-arrow-right.svg"
+                    (click)="exit()"
+            ></ion-img>
+        </div>
+    </div>
+</div>

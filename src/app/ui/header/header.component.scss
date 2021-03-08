@@ -1,0 +1,24 @@
+.header {
+  background-color: var(--blue);
+  height: var(--headerHeight);
+  box-shadow: 0 0 14px 1px var(--mainColor);
+
+  &__content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__subContent {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__title {
+    color: var(--white);
+    font-weight: bold;
+    margin-left: 15px;
+  }
+}

@@ -1,0 +1,35 @@
+.card {
+  &-img {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  &-item {
+    width: 47%;
+  }
+
+  &-scanResult {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
+.img {
+  &-main {
+    width: 100%;
+  }
+}
+
+.text {
+  &-scan {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & ion-img {
+      margin-bottom: 10px;
+    }
+  }
+}

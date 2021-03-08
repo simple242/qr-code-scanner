@@ -1,0 +1,79 @@
+<ion-content class="ionContent">
+    <div class="page page-main">
+        <div class="container">
+            <div class="page__content">
+                <div class="input input-main">
+                    <input
+                            type="text"
+                            class="input__field"
+                            [placeholder]="languagesService.key.pages.history.placeholder"
+                            (input)="search($event)"
+                            [disabled]="!historyItems?.length"
+                    >
+                </div>
+                <div class="card mt-30" *ngIf="!historyItems.length || isShowNoData">
+                    <ion-text class="card__text">{{languagesService.key.pages.history.empty}}</ion-text>
+                </div>
+                <div class="historyList mt-15" *ngIf="historyItems.length">
+                    <div *ngFor="let historyItem of historyItems">
+                        <div class="card card-history" *ngIf="!historyItem.isHide" [id]="'h' + historyItem.id">
+
+                            <ion-text
+                                    *ngIf="historyItem.type === 1"
+                                    class="text text-bold"
+                            >{{languagesService.key.history.generate}}</ion-text>
+                            <ion-text
+                                    *ngIf="historyItem.type === 2"
+                                    class="text text-bold"
+                            >{{languagesService.key.history.scanning}}</ion-text>
+                            <ion-text
+                                    *ngIf="historyItem.type === 3"
+                                    class="text text-bold"
+                            >{{languagesService.key.history.gallery}}</ion-text>
+
+                            <ion-text class="text text-italic mt-10 w-100">{{historyItem.date}}</ion-text>
+                            <div class="card__content mt-10">
+                                <ion-text>{{languagesService.key.scanner.qrCode}}</ion-text>
+                                <div class="actions">
+                                    <ion-img
+                                            class="icon icon-action"
+                                            [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/cloud-arrow-down-fill.svg' : 'assets/icons/cloud-arrow-down-fill.svg'"
+                                            (click)="download(historyItem)"
+                                    ></ion-img>
+                                    <ion-img
+                                            class="icon icon-action"
+                                            [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/share.svg' : 'assets/icons/share.svg'"
+                                            (click)="sharing(historyItem)"
+                                    ></ion-img>
+                                    <ion-img
+                                            class="icon icon-action"
+                                            [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/x-circle-fill.svg' : 'assets/icons/x-circle-fill.svg'"
+                                            (click)="removeItem(historyItem)"
+                                    ></ion-img>
+                                </div>
+                            </div>
+                            <ngx-qrcode elementType="canvas" [value]="historyItem.data"></ngx-qrcode>
+                            <div class="horizontalLine"></div>
+                            <div class="card__content mt-10">
+                                <ion-text class="card__text">{{languagesService.key.scanner.content}}</ion-text>
+                                <div class="actions">
+                                    <ion-img
+                                            class="icon icon-action"
+                                            [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/files.svg' : 'assets/icons/files.svg'"
+                                            (click)="copyCodeResult(historyItem)"
+                                    ></ion-img>
+                                    <ion-img
+                                            class="icon icon-action"
+                                            [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/share.svg' : 'assets/icons/share.svg'"
+                                            (click)="sharingCodeResult(historyItem)"
+                                    ></ion-img>
+                                </div>
+                            </div>
+                            <ion-text class="text text-result">{{historyItem.data}}</ion-text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

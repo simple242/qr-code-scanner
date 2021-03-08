@@ -1,0 +1,138 @@
+<ion-content class="ionContent">
+    <div class="page page-main">
+        <div class="container">
+            <div class="page__content">
+                <div class="card card-scan" (click)="scanCode()" *ngIf="!scannedCode">
+                    <ion-text class="text text-scan">
+                        <ion-img
+                                class="icon"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/upc-scan.svg' : 'assets/icons/upc-scan.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.main.scan}}
+                    </ion-text>
+                </div>
+                <div class="card card-qrCodeScan" *ngIf="scannedCode">
+                    <div class="card__content">
+                        <ion-text>{{languagesService.key.scanner.qrCode}}</ion-text>
+                        <div class="actions">
+                            <ion-img
+                                    class="icon icon-action"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/cloud-arrow-down-fill.svg' : 'assets/icons/cloud-arrow-down-fill.svg'"
+                                    (click)="download()"
+                            ></ion-img>
+                            <ion-img
+                                    class="icon icon-action"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/share.svg' : 'assets/icons/share.svg'"
+                                    (click)="sharing()"
+                            ></ion-img>
+                            <ion-img
+                                    class="icon icon-action"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/x-circle-fill.svg' : 'assets/icons/x-circle-fill.svg'"
+                                    (click)="closeCode()"
+                            ></ion-img>
+                        </div>
+                    </div>
+                    <ngx-qrcode [elementType]="elementType" [value]="qrData"></ngx-qrcode>
+                    <div class="horizontalLine"></div>
+                    <div class="card__content mt-10">
+                        <ion-text class="card__text">{{languagesService.key.scanner.content}}</ion-text>
+                        <div class="actions">
+                            <ion-img
+                                    class="icon icon-action"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/files.svg' : 'assets/icons/files.svg'"
+                                    (click)="copyCodeResult()"
+                            ></ion-img>
+                            <ion-img
+                                    class="icon icon-action"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/share.svg' : 'assets/icons/share.svg'"
+                                    (click)="sharingCodeResult()"
+                            ></ion-img>
+                        </div>
+                    </div>
+                    <ion-text class="text text-result">{{scannedCode}}</ion-text>
+                    <ion-button
+                            *ngIf="emailLink"
+                            class="btn-generate mt-10"
+                            (click)="openEmailClient()"
+                    >
+                        {{languagesService.key.scanner.btns.send}}
+                    </ion-button>
+
+                    <ion-button
+                            *ngIf="sms?.number"
+                            class="btn-generate mt-10"
+                            (click)="sendSms()"
+                    >
+                        {{languagesService.key.scanner.btns.send}}
+                    </ion-button>
+
+                    <ion-button
+                            *ngIf="url"
+                            class="btn-generate mt-10"
+                            (click)="openLink()"
+                    >
+                        {{languagesService.key.scanner.btns.open}}
+                    </ion-button>
+                </div>
+                <div class="cards">
+                    <div class="card card-item" (click)="toCreate()">
+                        <ion-text class="card__text">
+                            <ion-img
+                                    class="icon icon-card"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/pencil-fill.svg' : 'assets/icons/pencil-fill.svg'"
+                            ></ion-img>
+                            {{languagesService.key.pages.main.create}}
+                        </ion-text>
+                    </div>
+                    <div class="card card-item" (click)="loadImg()">
+                        <ion-text class="card__text">
+                            <ion-img
+                                    class="icon icon-card"
+                                    [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/image.svg' : 'assets/icons/image.svg'"
+                            ></ion-img>
+                            {{languagesService.key.pages.main.gallery}}
+                        </ion-text>
+                    </div>
+                </div>
+                <div class="card" (click)="toHistory()">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/hourglass-split.svg' : 'assets/icons/hourglass-split.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.main.history}}
+                    </ion-text>
+                </div>
+                <div class="card" (click)="sharingApp()">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/share-fill.svg' : 'assets/icons/share-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.main.sharing}}
+                    </ion-text>
+                </div>
+
+                <div class="card" (click)="openMarket()">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/star-fill.svg' : 'assets/icons/star-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.main.star}}
+                    </ion-text>
+                </div>
+
+                <div class="card" (click)="openDrawer()">
+                    <ion-text class="card__text">
+                        <ion-img
+                                class="icon icon-card"
+                                [src]="optionsService.options$.value.isDarkTheme ? 'assets/icons/dark/gear-fill.svg' : 'assets/icons/gear-fill.svg'"
+                        ></ion-img>
+                        {{languagesService.key.pages.main.setting}}
+                    </ion-text>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

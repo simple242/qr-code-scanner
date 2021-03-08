@@ -1,0 +1,48 @@
+<div class="drawer" [hidden]="!uiService.isShowDrawer$.value">
+    <div class="drawer__menu animate__animated animate__fadeInLeft">
+        <p class="text text-drawerTitle mt-20">{{languagesService.key.drawer.app}}</p>
+        <ion-list>
+            <ion-item (click)="changeTheme()" lines="none">
+                <p class="text text-drawer">{{languagesService.key.drawer.theme}}</p>
+                <ion-checkbox slot="end" [(ngModel)]="options.isDarkTheme"></ion-checkbox>
+            </ion-item>
+            <ion-item (click)="clearHistory()" lines="none">
+                <p class="text text-drawer">{{languagesService.key.drawer.clear}}</p>
+            </ion-item>
+            <ion-item lines="none">
+                <div class="flex between alignCenter w-100">
+                    <p class="text text-drawer">{{languagesService.key.drawer.language}}</p>
+                    <ion-select
+                            (ionChange)="selectLang($event)"
+                            (click)="openAlert()"
+                            [okText]="languagesService.key.drawer.select.ok"
+                            [cancelText]="languagesService.key.drawer.select.cancel"
+                            [placeholder]="languagesService.key.language"
+                            [value]="languagesService.key.lang"
+                            interface="alert"
+                            [interfaceOptions]="langAlertOptions"
+                    >
+                        <ion-select-option value="EN">English</ion-select-option>
+                        <ion-select-option value="RU">Русский</ion-select-option>
+                    </ion-select>
+                </div>
+            </ion-item>
+        </ion-list>
+        <p class="text text-drawerTitle mt-10">{{languagesService.key.drawer.scanner}}</p>
+        <ion-list>
+            <ion-item (click)="frontalCamera()" lines="none">
+                <p class="text text-drawer">{{languagesService.key.drawer.camera}}</p>
+                <ion-checkbox slot="end" [(ngModel)]="options.frontalCamera"></ion-checkbox>
+            </ion-item>
+            <ion-item (click)="showTorch()" lines="none">
+                <p class="text text-drawer">{{languagesService.key.drawer.flashlight}}</p>
+                <ion-checkbox slot="end" [(ngModel)]="options.showTorch"></ion-checkbox>
+            </ion-item>
+            <ion-item (click)="beep()" lines="none">
+                <p class="text text-drawer">{{languagesService.key.drawer.sound}}</p>
+                <ion-checkbox slot="end" [(ngModel)]="options.beep"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="drawer__closeBox" (click)="closeDrawerMenu()"></div>
+</div>

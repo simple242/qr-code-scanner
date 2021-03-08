@@ -1,0 +1,322 @@
+<ion-content class="ionContent">
+    <div class="page page-main">
+        <div class="container">
+            <div class="page__content">
+
+                <div class="w-100" *ngIf="type === 'URL' || type === 'EMAIL' || type === 'TEXT' || type === 'PHONE'">
+                    <div class="input input-main">
+                        <input
+                                *ngIf="activeFormControl"
+                                class="input__field"
+                                [type]="inputType"
+                                [placeholder]="placeholder"
+                                [formControl]="activeFormControl"
+                                (input)="qrCodeChange($event)"
+                        >
+                    </div>
+                    <div class="card card-qrcode" *ngIf="activeFormControl?.valid">
+                        <ngx-qrcode [elementType]="elementType" [value]="qrData"></ngx-qrcode>
+                        <div class="btns">
+                            <ion-button
+                                    (click)="downloadCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.download}}
+                            </ion-button>
+                            <ion-button
+                                    (click)="sharingCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.sharing}}
+                            </ion-button>
+                        </div>
+                    </div>
+                    <div class="card mt-30" *ngIf="this.activeFormControl?.invalid">
+                        <ion-text class="card__text">{{languagesService.key.pages.create.empty}}</ion-text>
+                    </div>
+                </div>
+
+                <div class="w-100" *ngIf="type === 'SMS' && formSms">
+                    <form [formGroup]="formSms">
+                        <div class="input input-main">
+                            <input
+                                    class="input__field"
+                                    type="tel"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.sms.phone"
+                                    formControlName="phone"
+                                    (input)="qrCodeChangeSms()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.sms.sms"
+                                    formControlName="sms"
+                                    (input)="qrCodeChangeSms()"
+                            >
+                        </div>
+                    </form>
+                    <div class="card card-qrcode" *ngIf="formSms?.valid">
+                        <ngx-qrcode [elementType]="elementType" [value]="qrData"></ngx-qrcode>
+                        <div class="btns">
+                            <ion-button
+                                    (click)="downloadCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.download}}
+                            </ion-button>
+                            <ion-button
+                                    (click)="sharingCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.sharing}}
+                            </ion-button>
+                        </div>
+                    </div>
+                    <div class="card mt-30" *ngIf="formSms?.invalid">
+                        <ion-text class="card__text">{{languagesService.key.pages.create.empty}}</ion-text>
+                    </div>
+                </div>
+
+                <div class="w-100" *ngIf="type === 'WIFI' && formWifi">
+                    <form [formGroup]="formWifi">
+                        <div class="input input-main">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.wifi.ssid"
+                                    formControlName="ssid"
+                                    (input)="qrCodeChangeWifi()"
+                            >
+                        </div>
+                        <div class="mt-20">
+                            <ion-radio-group
+                                    class="radioGroup"
+                                    (ionChange)="changeRadio($event); qrCodeChangeWifi()"
+                                    formControlName="wifi_type"
+                                    [(ngModel)]="radioGroupValue"
+                            >
+                                <ion-item lines="none">
+                                    <ion-radio value="WPA"></ion-radio>
+                                    <ion-label>WPA/WPA2</ion-label>
+                                </ion-item>
+                                <ion-item lines="none">
+                                    <ion-radio value="WEP"></ion-radio>
+                                    <ion-label>WEP</ion-label>
+                                </ion-item>
+                                <ion-item lines="none">
+                                    <ion-radio value="OPEN"></ion-radio>
+                                    <ion-label>Open</ion-label>
+                                </ion-item>
+                            </ion-radio-group>
+                        </div>
+                        <div class="input input-main mt-20" *ngIf="formWifi.get('password')">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.wifi.password"
+                                    formControlName="password"
+                                    (input)="qrCodeChangeWifi()"
+                            >
+                        </div>
+                    </form>
+                    <div class="card card-qrcode" *ngIf="formWifi?.valid">
+                        <ngx-qrcode [elementType]="elementType" [value]="qrData"></ngx-qrcode>
+                        <div class="btns">
+                            <ion-button
+                                    (click)="downloadCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.download}}
+                            </ion-button>
+                            <ion-button
+                                    (click)="sharingCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.sharing}}
+                            </ion-button>
+                        </div>
+                    </div>
+                    <div class="card mt-30" *ngIf="formWifi?.invalid">
+                        <ion-text class="card__text">{{languagesService.key.pages.create.empty}}</ion-text>
+                    </div>
+                </div>
+
+                <div class="w-100" *ngIf="type === 'EVENT' && formEvent">
+                    <ion-datetime
+                            displayFormat="DD/MM/YY"
+                            pickerFormat="DD MM YYYY HH mm"
+                            min="1990-01-01" max="2100-01-01"
+                            id="startDate"
+                            (ionChange)="startDateChange($event)"
+                            [pickerOptions]="pickerOptions"
+                            [cancelText]="languagesService.key.pickers.date.cancel"
+                            [doneText]="languagesService.key.pickers.date.done"
+                    ></ion-datetime>
+                    <ion-datetime
+                            displayFormat="DD/MM/YY"
+                            pickerFormat="DD MM YYYY HH mm"
+                            min="1990-01-01" max="2100-01-01"
+                            id="endDate"
+                            (ionChange)="endDateChange($event)"
+                            [pickerOptions]="pickerOptions"
+                            [cancelText]="languagesService.key.pickers.date.cancel"
+                            [doneText]="languagesService.key.pickers.date.done"
+                    ></ion-datetime>
+                    <form [formGroup]="formEvent">
+                        <div class="input input-main">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.event.name"
+                                    formControlName="title"
+                                    (input)="qrCodeChangeEvent()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="datetime"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.event.date_start"
+                                    formControlName="date_start"
+                                    (input)="qrCodeChangeEvent()"
+                                    (click)="openStartDate()"
+                                    readonly
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="datetime"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.event.date_end"
+                                    formControlName="date_end"
+                                    (input)="qrCodeChangeEvent()"
+                                    (click)="openEndDate()"
+                                    readonly
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.event.location"
+                                    formControlName="location"
+                                    (input)="qrCodeChangeEvent()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <textarea
+                                    class="input__field input__field-textarea"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.event.description"
+                                    formControlName="description"
+                                    (input)="qrCodeChangeEvent()"
+                            ></textarea>
+                        </div>
+                    </form>
+                    <div class="card card-qrcode" *ngIf="formEvent?.valid">
+                        <ngx-qrcode [elementType]="elementType" [value]="qrData"></ngx-qrcode>
+                        <div class="btns">
+                            <ion-button
+                                    (click)="downloadCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.download}}
+                            </ion-button>
+                            <ion-button
+                                    (click)="sharingCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.sharing}}
+                            </ion-button>
+                        </div>
+                    </div>
+                    <div class="card mt-30" *ngIf="formEvent?.invalid">
+                        <ion-text class="card__text">{{languagesService.key.pages.create.empty}}</ion-text>
+                    </div>
+                </div>
+
+                <div class="w-100" *ngIf="type === 'ME' && formMe">
+                    <form [formGroup]="formMe">
+                        <div class="input input-main">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.me.fn"
+                                    formControlName="fn"
+                                    (input)="qrCodeChangeMe()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.me.organization"
+                                    formControlName="organization"
+                                    (input)="qrCodeChangeMe()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.me.address"
+                                    formControlName="address"
+                                    (input)="qrCodeChangeMe()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="tel"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.me.phone"
+                                    formControlName="phone"
+                                    (input)="qrCodeChangeMe()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <input
+                                    class="input__field"
+                                    type="email"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.me.email"
+                                    formControlName="email"
+                                    (input)="qrCodeChangeMe()"
+                            >
+                        </div>
+                        <div class="input input-main mt-20">
+                            <textarea
+                                    class="input__field input__field-textarea"
+                                    type="text"
+                                    [placeholder]="languagesService.key.pages.create.placeholders.me.notes"
+                                    formControlName="notes"
+                                    (input)="qrCodeChangeMe()"
+                            ></textarea>
+                        </div>
+                    </form>
+                    <div class="card card-qrcode" *ngIf="formMe?.valid">
+                        <ngx-qrcode [elementType]="elementType" [value]="qrData"></ngx-qrcode>
+                        <div class="btns">
+                            <ion-button
+                                    (click)="downloadCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.download}}
+                            </ion-button>
+                            <ion-button
+                                    (click)="sharingCode()"
+                                    class="btn-generate"
+                            >
+                                {{languagesService.key.btns.sharing}}
+                            </ion-button>
+                        </div>
+                    </div>
+                    <div class="card mt-30" *ngIf="formMe?.invalid">
+                        <ion-text class="card__text">{{languagesService.key.pages.create.empty}}</ion-text>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ion-content>
